@@ -1,6 +1,7 @@
 package com.ersameerpatel.mssc.brewery.client.web.client;
 
 import com.ersameerpatel.mssc.brewery.client.web.model.BeerDto;
+import com.ersameerpatel.mssc.brewery.client.web.model.CustomerDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ class BreweryClientTest {
     BreweryClient client;
 
     @Test
-    void getBeerById() {
+    void testGetBeerById() {
 
         BeerDto dto = client.getBeerById(UUID.randomUUID());
         Assertions.assertNotNull(dto);
@@ -24,10 +25,35 @@ class BreweryClientTest {
     }
 
     @Test
-    void saveNewBeer(){
+    void testSaveNewBeer(){
 
         URI uri = client.saveNewBeer(BeerDto.builder().beerName("NewBeer").build());
         Assertions.assertNotNull(uri);
         System.out.println("JUnit :: URI Received :: " + uri);
+    }
+
+    @Test
+    void testUpdateBeer(){
+        client.updateBeer(UUID.randomUUID(), BeerDto.builder().beerName("NewBeer").build());
+    }
+
+    @Test
+    void testDelete() {
+        client.deleteBeer(UUID.randomUUID());
+    }
+
+    @Test
+    void testSaveNewCustomer() {
+        client.saveNewCustomer(CustomerDto.builder().build());
+    }
+
+    @Test
+    void testUpdateCustomer() {
+        client.updateCustomer(UUID.randomUUID(), CustomerDto.builder().build());
+    }
+
+    @Test
+    void testDeleteCustomer() {
+        client.deleteCustomer(UUID.randomUUID());
     }
 }
