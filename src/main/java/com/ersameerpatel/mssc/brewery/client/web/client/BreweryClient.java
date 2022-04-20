@@ -4,6 +4,7 @@ import com.ersameerpatel.mssc.brewery.client.web.model.BeerDto;
 import com.ersameerpatel.mssc.brewery.client.web.model.CustomerDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,8 +30,9 @@ public class BreweryClient {
         return restTemplate.getForObject(apihost + BEER_PATH_V1 + uuid.toString(), BeerDto.class);
     }
 
-    public URI saveNewBeer(BeerDto beerDto){
-        return restTemplate.postForLocation(apihost + BEER_PATH_V1, beerDto);
+    public ResponseEntity saveNewBeer(BeerDto beerDto){
+        //return restTemplate.postForLocation(apihost + BEER_PATH_V1, beerDto);
+        return restTemplate.postForEntity(apihost + BEER_PATH_V1, beerDto, ResponseEntity.class );
     }
 
     public void updateBeer(UUID uuid, BeerDto beerDto){

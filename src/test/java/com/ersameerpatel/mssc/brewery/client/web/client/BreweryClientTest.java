@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,12 +32,24 @@ class BreweryClientTest {
     }
 
     @Test
-    void testSaveNewBeer(){
+    void testSaveNewBeerPositiveTestCase(){
 
-        URI uri = client.saveNewBeer(BeerDto.builder().beerName("NewBeer").build());
+       ResponseEntity responseEntity = client.saveNewBeer(BeerDto.builder().beerName("NewBeer").build());
+        //URI uri = client.saveNewBeer(BeerDto.builder().beerName("NewBeer").build());
+        URI uri = responseEntity.getHeaders().getLocation();
         Assertions.assertNotNull(uri);
         System.out.println("JUnit :: URI Received :: " + uri);
     }
+
+//    @Test
+//    void testSaveNewBeerNegativeTestCase(){
+//
+//        ResponseEntity responseEntity = client.saveNewBeer(BeerDto.builder().beerName("NewBeer").id(UUID.randomUUID()).build());
+//        //URI uri = client.saveNewBeer(BeerDto.builder().beerName("NewBeer").build());
+//        URI uri = responseEntity.getHeaders().getLocation();
+//        Assertions.assertNotNull(uri);
+//        System.out.println("JUnit :: URI Received :: " + uri);
+//    }
 
     @Test
     void testUpdateBeer(){
